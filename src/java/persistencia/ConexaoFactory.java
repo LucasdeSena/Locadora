@@ -20,7 +20,7 @@ public class ConexaoFactory {
         Connection conn = null;
         
         String drive = "com.mysql.jdbc.Driver";
-        String banco = "jdbc:mysql://localhost:3306/bd_autenticacao";
+        String banco = "jdbc:mysql://localhost:3306/locadora";
         String usuarioBD = "root";
         String senha = "123456";
         

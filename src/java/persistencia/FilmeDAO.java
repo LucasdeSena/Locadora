@@ -10,15 +10,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import modelo.Filme;
 import modelo.Usuario;
 
 /**
  *
  * @author Administrador
  */
-public class UsuarioDAO {
+public class FilmeDAO {
     
-    public static void inserir(Usuario u) throws SQLException, ClassNotFoundException{
+    public static void inserir(Filme f) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
         PreparedStatement  preparedStatement = null;
@@ -28,16 +29,21 @@ public class UsuarioDAO {
         conn = ConexaoFactory.getConexao();
         
         // Comando SQL 
-        SQL = "INSERT INTO usuarios (login, nome, senha, perfil, status) " +
-                                     "VALUES (?, ?, ?, ?, ?)";
+        SQL = "INSERT INTO filmes (titulo, cod_genero, sinopse, diretor, ano_lancamento, status, usuario_cadastro, datahora_cadastro) " +
+                                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         preparedStatement = conn.prepareStatement(SQL);
 
-        preparedStatement.setString(1, u.getLogin());
-        preparedStatement.setString(2, u.getNome());
-        preparedStatement.setString(3, u.getSenha());
-        preparedStatement.setString(4, u.getPerfil());        
-        preparedStatement.setString(5, u.getStatus());
+        preparedStatement.setString(1, f.getTitulo());
+        preparedStatement.setInt(2, f.getCod_genero());
+        preparedStatement.setString(3, f.getSinopse());
+        preparedStatement.setString(4, f.getDiretor());        
+        preparedStatement.setInt(5, f.getAno_lancamento());
+        preparedStatement.setString(6, f.getStatus());
+        preparedStatement.setString(7, f.getUsuario_cadastro());
+        
+        preparedStatement.setDate(8, f.getDatahora_cadastro());
+        
         
         // Executa no BD        
         preparedStatement.executeUpdate();  
@@ -47,7 +53,7 @@ public class UsuarioDAO {
         
     }    
     
-    public static boolean buscar(Usuario u) throws SQLException, ClassNotFoundException{
+   /* public static boolean buscar(Usuario u) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
         PreparedStatement  preparedStatement = null;
@@ -80,5 +86,5 @@ public class UsuarioDAO {
         conn.close();
         
         return existe;
-    }    
+    }   */ 
 }

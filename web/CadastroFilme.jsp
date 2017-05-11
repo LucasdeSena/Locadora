@@ -19,16 +19,21 @@
         <!-- Method = post os dados não vao ser enviados via URL
             e sim dentro do corpo da requisicao -->
         <form action="CadastrarUsuario" method="post">
-            Login:<br> <input type="text" name="txtLogin" value="${usuario.login}"><br>
-            Nome:<br> <input type="text" name="txtNome"><br>
-            Senha:<br> <input type="password" name="txtSenha"><br><br>
-            Perfil:<br>
-            <select name="Perfil">
+            
+            Titulo:<br> <input type="text" name="txtTitulo"><br><br>
+            
+            Generos:<br>
+            <select name="Generos">
                 
-            <option value="func"> Funcionario </option>
-            <option value="adm"> Administrador </option>
+            <option value="acao"> Ação </option>
+            <option value="terror"> Terror </option>
+            <option value="comedia"> Comédia </option>
+            <option value="desenho"> Desenho </option>
             
             </select><br><br>
+            
+            Sinopse:<br> <textarea rows="10" cols="60"> </textarea><br>
+            Senha:<br> <input type="password" name="txtSenha"><br><br>
             
             Status:<br>
             
