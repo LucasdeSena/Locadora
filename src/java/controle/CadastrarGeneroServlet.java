@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Genero;
+
 import modelo.Usuario;
 import org.apache.commons.codec.digest.DigestUtils;
+import persistencia.GeneroDAO;
 import persistencia.UsuarioDAO;
 import utilidades.BancoDeDadosException;
 import utilidades.PersonalizarMsgErro;
@@ -24,8 +27,8 @@ import utilidades.PersonalizarMsgErro;
  *
  * @author sala304b
  */
-@WebServlet(name = "CadastrarUsuarioServlet", urlPatterns = {"/CadastrarUsuario"})
-public class CadastrarUsuarioServlet extends HttpServlet {
+@WebServlet(name = "CadastrarGeneroServlet", urlPatterns = {"/CadastrarGenero"})
+public class CadastrarGeneroServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,74 +42,49 @@ public class CadastrarUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String login = request.getParameter("txtLogin");
         String nome = request.getParameter("txtNome");
-        String senha = request.getParameter("txtSenha");
-        String perfil = request.getParameter("Perfil");
-        String status = request.getParameter("Status");
+        String descricao = request.getParameter("txtDescricao");
         String msgErro = "";
         
-        
-        if(login.trim().length() >= 5){
+        if(nome.trim().length() < 4){
             
-        if(senha.trim().length() != 6){
-            
-            msgErro = "A senha tem que ser igual a 6 caracters";
+            msgErro = "O nome não pode ter menos que 4 caracteres.";
             
         }else{
             
-            if(senha.contains(" ")){
+            if(descricao.trim().equals("")){
+               
+                msgErro = "O campo descrição esta vazio.";
                 
-                msgErro = "A senha não pode ter espaço"; 
-            }else{
-            
-            if(login.contains(" ")){
-                
-                msgErro = "O login não pode ter espaço";
-                
-            }else{
-            
-            if(senha.equals(nome) || senha.equals(login)){
-                
-                 msgErro = "A senha não pode ser igual ao login nem igual ao nome";
-                 
             }else{
         
-        if(login != null && senha !=null){
-            String senhaCriptografada = DigestUtils.sha512Hex(senha);
+        if(nome != null){
             
-            Usuario usuario = new Usuario();
-            usuario.setLogin(login);
-            usuario.setNome(nome);
-            usuario.setSenha(senhaCriptografada);
-            usuario.setPerfil(perfil);
-            usuario.setStatus(status);
+            
+            Genero genero = new Genero();
+            genero.setNome(nome);
+            genero.setDescricao(descricao);
+            
              
             try{
-            UsuarioDAO.inserir(usuario);
+            GeneroDAO.inserir(genero);
             
             }catch (Exception ex){
-            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o usuário: " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
-            RequestDispatcher rd = request.getRequestDispatcher("CadastroUsuario.jsp");
+            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o gênero: " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
+            RequestDispatcher rd = request.getRequestDispatcher("CadastroGenero.jsp");
             rd.forward(request, response);
             
-            request.setAttribute("usuario", usuario);
+            request.setAttribute("usuario", genero);
             
             //throw new ServletException(ex);
             }
-            
+               
                 // Redireciona para uma pagina logada
                 response.sendRedirect("PainelUsuario.jsp");
                 
                 return;  
         }
         }
-        }
-        }
-        }
-        }else{
-            
-             msgErro = "O login não pode ter menos que 5 caracteres";
         }
         
         try (PrintWriter out = response.getWriter()) {

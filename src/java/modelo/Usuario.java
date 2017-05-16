@@ -17,6 +17,15 @@ public class Usuario {
     private String perfil;
     private String status;
 
+    public Usuario() {
+    }
+    
+
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
+
     /**
      * @return the login
      */
@@ -87,7 +96,6 @@ public class Usuario {
         this.status = status;
     }
     
-    
+
    
-    
 }

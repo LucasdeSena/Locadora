@@ -7,6 +7,7 @@ package controle;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Filme;
+import modelo.Genero;
 import modelo.Usuario;
 import org.apache.commons.codec.digest.DigestUtils;
+import persistencia.FilmeDAO;
 import persistencia.UsuarioDAO;
 import utilidades.BancoDeDadosException;
 import utilidades.PersonalizarMsgErro;
@@ -24,8 +28,8 @@ import utilidades.PersonalizarMsgErro;
  *
  * @author sala304b
  */
-@WebServlet(name = "CadastrarUsuarioServlet", urlPatterns = {"/CadastrarUsuario"})
-public class CadastrarUsuarioServlet extends HttpServlet {
+@WebServlet(name = "CadastrarFilmeServlet", urlPatterns = {"/CadastrarFilme"})
+public class CadastrarFilmeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,76 +43,91 @@ public class CadastrarUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String login = request.getParameter("txtLogin");
-        String nome = request.getParameter("txtNome");
-        String senha = request.getParameter("txtSenha");
-        String perfil = request.getParameter("Perfil");
+        
+        String titulo = request.getParameter("txtTitulo");
+        
+        String codGeneroAux = request.getParameter("CodGenero");
+        int codGenero = Integer.parseInt(codGeneroAux);
+        
+        String sinopse = request.getParameter("txtSinopse");
+        String diretor = request.getParameter("txtDiretor");
+        
+        String anoLancamentoAux = request.getParameter("txtAnoLancamento");
+        
+        
         String status = request.getParameter("Status");
+        
         String msgErro = "";
+       
         
         
-        if(login.trim().length() >= 5){
+        if(titulo.trim().length() < 3){
+           
+           msgErro = "O titulo não pode ter menos que 3 caracteres";
+           
+       }else{
+        
+        if(sinopse.trim().equals("")){
             
-        if(senha.trim().length() != 6){
-            
-            msgErro = "A senha tem que ser igual a 6 caracters";
+             msgErro = "O Campo sinopse não pode estar vazio ";
             
         }else{
             
-            if(senha.contains(" ")){
-                
-                msgErro = "A senha não pode ter espaço"; 
-            }else{
-            
-            if(login.contains(" ")){
-                
-                msgErro = "O login não pode ter espaço";
-                
-            }else{
-            
-            if(senha.equals(nome) || senha.equals(login)){
-                
-                 msgErro = "A senha não pode ser igual ao login nem igual ao nome";
-                 
-            }else{
+            if(diretor.trim().length() < 5){
+               
+               msgErro = " O campo diretor deve ter mais que 5 caracteres ";
+               
+           }else{
         
-        if(login != null && senha !=null){
-            String senhaCriptografada = DigestUtils.sha512Hex(senha);
+        if(anoLancamentoAux.trim().equals("")){
             
-            Usuario usuario = new Usuario();
-            usuario.setLogin(login);
-            usuario.setNome(nome);
-            usuario.setSenha(senhaCriptografada);
-            usuario.setPerfil(perfil);
-            usuario.setStatus(status);
+            msgErro = "O Campo Ano de Lançamento não pode estar vazio ";
+            
+        }else{
+        
+        int anoLancamento = Integer.parseInt(anoLancamentoAux);
+               
+        if(titulo != null){
+            
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioAutenticado");
+            
+            Filme filme = new Filme();
+            filme.setTitulo(titulo);
+            filme.setGenero(new Genero(codGenero));
+            filme.setSinopse(sinopse);
+            filme.setDiretor(diretor);
+            filme.setAno_lancamento(anoLancamento);
+            filme.setStatus(status);
+            filme.setUsuario_cadastro(usuario);
+            filme.setDatahora_cadastro(new Date());
+            
+            
+            
+            
              
             try{
-            UsuarioDAO.inserir(usuario);
+            FilmeDAO.inserir(filme);
             
             }catch (Exception ex){
-            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o usuário: " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
-            RequestDispatcher rd = request.getRequestDispatcher("CadastroUsuario.jsp");
+            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o filme: " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
+            RequestDispatcher rd = request.getRequestDispatcher("CadastroFilme.jsp");
             rd.forward(request, response);
             
-            request.setAttribute("usuario", usuario);
+            request.setAttribute("usuario", filme);
             
             //throw new ServletException(ex);
             }
-            
+                
                 // Redireciona para uma pagina logada
                 response.sendRedirect("PainelUsuario.jsp");
                 
                 return;  
         }
+       }
+       }
         }
         }
-        }
-        }
-        }else{
-            
-             msgErro = "O login não pode ter menos que 5 caracteres";
-        }
-        
+       
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -166,3 +185,4 @@ public class CadastrarUsuarioServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

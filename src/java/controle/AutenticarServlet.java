@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import modelo.Usuario;
 import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.UsuarioDAO;
+import utilidades.PersonalizarMsgErro;
 
 /**
  *
@@ -43,6 +44,8 @@ public class AutenticarServlet extends HttpServlet {
         String nome = request.getParameter("txtNome");
         String senha = request.getParameter("txtSenha");
         
+        String msgErro = "";
+        
         if(nome != null && senha !=null){
             String senhaCriptografada = DigestUtils.sha512Hex(senha);
             Usuario usuario = new Usuario();
@@ -52,26 +55,39 @@ public class AutenticarServlet extends HttpServlet {
             try {
                 //chamando o método buscar para verificar 
                 //se o usuário existe no banco de dados
-                boolean resultado = UsuarioDAO.buscar(usuario);
+                Usuario autenticado = UsuarioDAO.buscar(usuario);
 
-                if(resultado == true){
+                
+                
+                
+                if(autenticado != null ){
+                    
+                    if(autenticado.getStatus().equals("ativo")){
                     // Informo ao servidor qual usuario autenticado
                     HttpSession session = request.getSession(true);
-                    session.setAttribute("usuarioAutenticado", nome);
+                    session.setAttribute("usuarioAutenticado", autenticado);
 
                     // Redireciona para uma pagina logada
                     response.sendRedirect("PainelUsuario.jsp");
 
                     return;
 
-                }                
+                }else{
+            
+                  msgErro = "Usuario Inativo não pode logar";
+                  
+                    }
+                    }else{
+                            msgErro = "Login ou senha Incorretos!";
+            
+             }
+                
                 
             } catch (Exception ex) {
                 throw new ServletException(ex);
             } 
-
-            
         }
+            
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -84,7 +100,7 @@ public class AutenticarServlet extends HttpServlet {
             out.println("<h1>Autenticação</h1>");
             out.println("<hr>");
             out.println("<a href=\"javascript:history.back()\">Voltar</a><br>");
-            out.println("<h3>Login ou Senha Incorretos!</h3>");
+            out.println("<h3>" + msgErro + "</h3>");
             out.println("</body>");
             out.println("</html>");
         }

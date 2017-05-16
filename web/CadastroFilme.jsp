@@ -3,7 +3,11 @@
     Created on : 13/04/2017, 10:48:45
     Author     : sala304b
 --%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@page import="modelo.Genero"%>
+<jsp:useBean class="persistencia.GeneroDAO"
+             id="dao"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,30 +16,30 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Cadastro de Usuário</h1>
+        <h1>Cadastro de Filme</h1>
         <hr><br>
         
         <div class="erro">${msgErro}</div>
         <!-- Method = post os dados não vao ser enviados via URL
             e sim dentro do corpo da requisicao -->
-        <form action="CadastrarUsuario" method="post">
+        <form action="CadastrarFilme" method="post">
             
-            Titulo:<br> <input type="text" name="txtTitulo"><br><br>
+            <b>Titulo:</b><br> <input type="text" name="txtTitulo"><br><br>
             
-            Generos:<br>
-            <select name="Generos">
+            <b>Generos:<br></b>
+            
+            <select name="CodGenero">
+                <c:forEach items="${dao.listar()}" var="genero">
+                    <option value="${genero.codigo}">${genero.nome}</option>
+            </c:forEach>
                 
-            <option value="acao"> Ação </option>
-            <option value="terror"> Terror </option>
-            <option value="comedia"> Comédia </option>
-            <option value="desenho"> Desenho </option>
-            
             </select><br><br>
             
-            Sinopse:<br> <textarea rows="10" cols="60"> </textarea><br>
-            Senha:<br> <input type="password" name="txtSenha"><br><br>
+            <b>Sinopse:</b><br> <textarea rows="10" cols="60" name="txtSinopse"></textarea><br><br>
+            <b>Diretor:</b><br><input type="text" name="txtDiretor"><br><br>
+            <b>Ano de Lançamento:</b><br><input type="text" name="txtAnoLancamento"><br><br>
             
-            Status:<br>
+            <b>Status:</b><br>
             
             <select name="Status">
                 

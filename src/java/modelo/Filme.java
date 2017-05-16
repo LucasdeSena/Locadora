@@ -5,7 +5,9 @@
  */
 package modelo;
 
-import java.sql.Date;
+import java.util.Date;
+
+
 
 /**
  *
@@ -15,12 +17,12 @@ public class Filme {
     
     private int codigo;
     private String titulo;
-    private int cod_genero;
+    private Genero genero;
     private String sinopse;
     private String diretor;
     private int ano_lancamento;
     private String status;        
-    private String usuario_cadastro;
+    private Usuario usuario_cadastro;
     private Date datahora_cadastro;
 
     /**
@@ -51,19 +53,7 @@ public class Filme {
         this.titulo = titulo;
     }
 
-    /**
-     * @return the cod_genero
-     */
-    public int getCod_genero() {
-        return cod_genero;
-    }
-
-    /**
-     * @param cod_genero the cod_genero to set
-     */
-    public void setCod_genero(int cod_genero) {
-        this.cod_genero = cod_genero;
-    }
+    
 
     /**
      * @return the sinopse
@@ -124,14 +114,14 @@ public class Filme {
     /**
      * @return the usuario_cadastro
      */
-    public String getUsuario_cadastro() {
+    public Usuario getUsuario_cadastro() {
         return usuario_cadastro;
     }
 
     /**
      * @param usuario_cadastro the usuario_cadastro to set
      */
-    public void setUsuario_cadastro(String usuario_cadastro) {
+    public void setUsuario_cadastro(Usuario usuario_cadastro) {
         this.usuario_cadastro = usuario_cadastro;
     }
 
@@ -148,7 +138,22 @@ public class Filme {
     public void setDatahora_cadastro(Date datahora_cadastro) {
         this.datahora_cadastro = datahora_cadastro;
     }
-    
+
+    /**
+     * @return the genero
+     */
+    public Genero getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+  
     
     
 }

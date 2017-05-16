@@ -9,18 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login</title>
     </head>
     <body>
-        <h1>Autenticação</h1>
-        <hr>
-        <a href="javascript:history.back()">Voltar</a><br>
+        <h1>Bem vindo</h1>
+        <hr><br>
+        
         <!-- Method = post os dados não vao ser enviados via URL
             e sim dentro do corpo da requisicao -->
         <form action="Autenticar" method="post">
-            Nome: <input type="text" name="txtNome"><br>
-            Senha: <input type="password" name="txtSenha"><br>
-            <input type="submit" value="Logar">            
-        </form>
+            Nome: <input type="text" name="txtNome"><br><br>
+            Senha: <input type="password" name="txtSenha"><br><br>
+            <input type="submit" value="Logar"><br><br>   
+            
+            <a href="javascript:history.back()">Voltar</a><br>
+        </form><br><br>
     </body>
 </html>
