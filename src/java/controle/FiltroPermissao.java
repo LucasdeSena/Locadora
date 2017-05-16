@@ -22,8 +22,8 @@ import modelo.Usuario;
  * @author sala304b
  */
 
-@WebFilter(filterName = "FiltroAutenticacao", urlPatterns = {"/PainelUsuario.jsp"})
-public class FiltroAutenticacao implements Filter{
+@WebFilter(filterName = "FiltroPermissao", urlPatterns = {"/CadastroUsuario.jsp"})
+public class FiltroPermissao implements Filter{
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {        
@@ -39,9 +39,10 @@ public class FiltroAutenticacao implements Filter{
         //Pega o parametro usuarioAutenticado da sessão
         Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioAutenticado");
         
-        //Se o usuário não está logado redireciona para a página de login
-        if(usuario == null){
-            res.sendRedirect("Login.jsp");
+        if(usuario.getPerfil().equals("func")){
+            
+            res.sendRedirect("PainelUsuario.jsp");
+            
         }else{
             //passa pelo filtro e abre a url requisistada
             chain.doFilter(request, response);

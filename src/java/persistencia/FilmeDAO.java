@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 import modelo.Filme;
 import modelo.Usuario;
@@ -35,14 +36,16 @@ public class FilmeDAO {
         preparedStatement = conn.prepareStatement(SQL);
 
         preparedStatement.setString(1, f.getTitulo());
-        preparedStatement.setInt(2, f.getCod_genero());
+        preparedStatement.setInt(2, f.getGenero().getCodigo());
         preparedStatement.setString(3, f.getSinopse());
         preparedStatement.setString(4, f.getDiretor());        
         preparedStatement.setInt(5, f.getAno_lancamento());
         preparedStatement.setString(6, f.getStatus());
-        preparedStatement.setString(7, f.getUsuario_cadastro());
+        preparedStatement.setString(7, f.getUsuario_cadastro().getLogin());
         
-        preparedStatement.setDate(8, f.getDatahora_cadastro());
+        Timestamp dataAux = new Timestamp(
+                f.getDatahora_cadastro().getTime());
+        preparedStatement.setTimestamp(8, dataAux);
         
         
         // Executa no BD        

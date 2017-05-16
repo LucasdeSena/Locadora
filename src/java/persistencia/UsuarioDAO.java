@@ -47,13 +47,14 @@ public class UsuarioDAO {
         
     }    
     
-    public static boolean buscar(Usuario u) throws SQLException, ClassNotFoundException{
+    public static Usuario buscar(Usuario u) throws SQLException, ClassNotFoundException{
         
         Connection conn = null;
         PreparedStatement  preparedStatement = null;
         ResultSet rs = null;
         String SQL = "";
-        boolean existe = false;
+        
+        Usuario usuario = null;
         
         // Obtem conexao com BD
         conn = ConexaoFactory.getConexao();
@@ -73,12 +74,19 @@ public class UsuarioDAO {
 
         // Verifica se possui dados
         if (rs.next()) {
-            existe = true;            
+            
+         usuario = new Usuario(); 
+
+          usuario.setLogin(rs.getString("login"));
+          usuario.setNome(rs.getString("nome"));
+          usuario.setPerfil(rs.getString("perfil"));
+          usuario.setStatus(rs.getString("status"));
+          
          } 
         
         // Fechar conexao
         conn.close();
         
-        return existe;
+        return usuario;
     }    
 }

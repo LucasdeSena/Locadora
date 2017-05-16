@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Genero;
-import modelo.Usuario;
+
 
 
 
@@ -30,7 +30,7 @@ public class GeneroDAO {
         conn = ConexaoFactory.getConexao();
         
         // Comando SQL 
-        SQL = "INSERT INTO usuarios (nome, descricao) " +
+        SQL = "INSERT INTO generos (nome, descricao) " +
                                      "VALUES (?, ?)";
 
         
