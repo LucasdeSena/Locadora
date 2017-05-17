@@ -22,7 +22,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.FilmeDAO;
 import persistencia.UsuarioDAO;
 import utilidades.BancoDeDadosException;
-import utilidades.PersonalizarMsgErro;
+
+import utilidades.PersonalizarMsgErro2;
 
 /**
  *
@@ -118,7 +119,7 @@ public class CadastrarFilmeServlet extends HttpServlet {
             FilmeDAO.inserir(filme);
             
             }catch (Exception ex){
-            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o filme: " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
+            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o filme: " + PersonalizarMsgErro2.getMensagem(ex.getMessage()));
             RequestDispatcher rd = request.getRequestDispatcher("CadastroFilme.jsp");
             rd.forward(request, response);
             
