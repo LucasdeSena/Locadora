@@ -5,15 +5,17 @@
         <group>
             <file>file:/C:/ProjetosGit/Locadora/src/java/controle/FiltroAutenticacao.java</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/controle/AutenticarServlet.java</file>
-            <file>file:/C:/ProjetosGit/Locadora/web/PainelUsuario.jsp</file>
+            <file>file:/C:/ProjetosGit/Locadora/web/CadastroUsuario.jsp</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/controle/ListaPedidoClienteServlet.java</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/persistencia/UsuarioDAO.java</file>
+            <file>file:/C:/ProjetosGit/Locadora/web/Login.jsp</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/controle/CadastrarUsuarioServlet.java</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/modelo/Filme.java</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/modelo/Genero.java</file>
-            <file>file:/C:/ProjetosGit/Locadora/src/java/persistencia/FilmeDAO.java</file>
+            <file>file:/C:/ProjetosGit/Locadora/src/java/controle/FiltroPermissao.java</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/controle/CadastrarGeneroServlet.java</file>
             <file>file:/C:/ProjetosGit/Locadora/web/CadastroGenero.jsp</file>
+            <file>file:/C:/ProjetosGit/Locadora/web/CadastroFilme.jsp</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/controle/CadastrarFilmeServlet.java</file>
             <file>file:/C:/ProjetosGit/Locadora/src/java/persistencia/GeneroDAO.java</file>
         </group>

@@ -37,7 +37,7 @@
             
             <b>Sinopse:</b><br> <textarea rows="10" cols="60" name="txtSinopse"></textarea><br><br>
             <b>Diretor:</b><br><input type="text" name="txtDiretor"><br><br>
-            <b>Ano de Lançamento:</b><br><input type="text" name="txtAnoLancamento"><br><br>
+            <b>Ano de Lançamento:</b><br><input type="number" name="txtAnoLancamento"><br><br>
             
             <b>Status:</b><br>
             

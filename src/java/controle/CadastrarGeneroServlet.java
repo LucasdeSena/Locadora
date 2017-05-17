@@ -52,12 +52,7 @@ public class CadastrarGeneroServlet extends HttpServlet {
             
         }else{
             
-            if(descricao.trim().equals("")){
-               
-                msgErro = "O campo descrição esta vazio.";
-                
-            }else{
-        
+            
         if(nome != null){
             
             
@@ -85,7 +80,7 @@ public class CadastrarGeneroServlet extends HttpServlet {
                 return;  
         }
         }
-        }
+        
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

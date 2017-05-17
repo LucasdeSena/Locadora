@@ -58,7 +58,9 @@ public class CadastrarFilmeServlet extends HttpServlet {
         String status = request.getParameter("Status");
         
         String msgErro = "";
-       
+        
+        String auxiliar = diretor.replace(" ", "");
+        
         
         
         if(titulo.trim().length() < 3){
@@ -73,20 +75,27 @@ public class CadastrarFilmeServlet extends HttpServlet {
             
         }else{
             
-            if(diretor.trim().length() < 5){
-               
-               msgErro = " O campo diretor deve ter mais que 5 caracteres ";
-               
-           }else{
+           if(auxiliar.length() < 5){
+            
+            msgErro = "O Direotor não pode ter menos que 5 caracteres";
+            
+        }else{
+                
         
         if(anoLancamentoAux.trim().equals("")){
             
-            msgErro = "O Campo Ano de Lançamento não pode estar vazio ";
+            msgErro = "O Campo Ano de Lançamento não pode estar vazio";
             
         }else{
         
         int anoLancamento = Integer.parseInt(anoLancamentoAux);
-               
+        
+        if(anoLancamento < 1895){
+                
+                msgErro = "Ano de lançamento a partir de 1895";
+                
+            }else{
+            
         if(titulo != null){
             
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioAutenticado");
@@ -127,7 +136,7 @@ public class CadastrarFilmeServlet extends HttpServlet {
        }
         }
         }
-       
+        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
