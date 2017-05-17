@@ -22,7 +22,7 @@
             <table>
                 <tr>
                     <th>Nome:</th>
-                    <th><input type="text" name="txtNome"></th>
+                    <th><input type="text" name="txtNome" maxlength="30"></th>
                 </tr>
                 <tr>
                     <th>Descrição:</th>                

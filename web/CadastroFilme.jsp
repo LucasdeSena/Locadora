@@ -24,11 +24,14 @@
             e sim dentro do corpo da requisicao -->
         <form action="CadastrarFilme" method="post">
             
-            <b>Titulo:</b><br> <input type="text" name="txtTitulo"><br><br>
+            <b>Titulo:</b><br> <input type="text" name="txtTitulo" maxlength="30"><br><br>
             
             <b>Generos:<br></b>
             
             <select name="CodGenero">
+                
+                <option value="selecionar">Selecione um genero</option>
+                
                 <c:forEach items="${dao.listar()}" var="genero">
                     <option value="${genero.codigo}">${genero.nome}</option>
             </c:forEach>
@@ -36,8 +39,8 @@
             </select><br><br>
             
             <b>Sinopse:</b><br> <textarea rows="10" cols="60" name="txtSinopse"></textarea><br><br>
-            <b>Diretor:</b><br><input type="text" name="txtDiretor"><br><br>
-            <b>Ano de Lançamento:</b><br><input type="number" name="txtAnoLancamento"><br><br>
+            <b>Diretor:</b><br><input type="text" name="txtDiretor" maxlength="30"><br><br>
+            <b>Ano de Lançamento:</b><br><input type="number" name="txtAnoLancamento" min="1985" max="2017"><br><br>
             
             <b>Status:</b><br>
             

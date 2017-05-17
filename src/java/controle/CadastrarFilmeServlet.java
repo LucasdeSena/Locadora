@@ -22,7 +22,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.FilmeDAO;
 import persistencia.UsuarioDAO;
 import utilidades.BancoDeDadosException;
-
 import utilidades.PersonalizarMsgErro2;
 
 /**
@@ -48,7 +47,7 @@ public class CadastrarFilmeServlet extends HttpServlet {
         String titulo = request.getParameter("txtTitulo");
         
         String codGeneroAux = request.getParameter("CodGenero");
-        int codGenero = Integer.parseInt(codGeneroAux);
+       
         
         String sinopse = request.getParameter("txtSinopse");
         String diretor = request.getParameter("txtDiretor");
@@ -62,30 +61,33 @@ public class CadastrarFilmeServlet extends HttpServlet {
         
         String auxiliar = diretor.replace(" ", "");
         
-        
+        if(codGeneroAux.equals("selecionar")){
+            
+            msgErro = "Não pode cadastrar um filme sem genero.";
+        }else{
         
         if(titulo.trim().length() < 3){
            
-           msgErro = "O titulo não pode ter menos que 3 caracteres";
+           msgErro = "O titulo não pode ter menos que 3 caracteres.";
            
        }else{
         
         if(sinopse.trim().equals("")){
             
-             msgErro = "O Campo sinopse não pode estar vazio ";
+             msgErro = "O Campo sinopse não pode estar vazio.";
             
         }else{
             
            if(auxiliar.length() < 5){
             
-            msgErro = "O Direotor não pode ter menos que 5 caracteres";
+            msgErro = "O Diretor não pode ter menos que 5 caracteres.";
             
         }else{
                 
         
         if(anoLancamentoAux.trim().equals("")){
             
-            msgErro = "O Campo Ano de Lançamento não pode estar vazio";
+            msgErro = "O Campo Ano de Lançamento não pode estar vazio.";
             
         }else{
         
@@ -93,9 +95,11 @@ public class CadastrarFilmeServlet extends HttpServlet {
         
         if(anoLancamento < 1895){
                 
-                msgErro = "Ano de lançamento a partir de 1895";
+                msgErro = "Ano de lançamento somente a partir de 1895.";
                 
             }else{
+            
+             int codGenero = Integer.parseInt(codGeneroAux);
             
         if(titulo != null){
             
@@ -110,8 +114,6 @@ public class CadastrarFilmeServlet extends HttpServlet {
             filme.setStatus(status);
             filme.setUsuario_cadastro(usuario);
             filme.setDatahora_cadastro(new Date());
-            
-            
             
             
              
@@ -132,6 +134,7 @@ public class CadastrarFilmeServlet extends HttpServlet {
                 response.sendRedirect("PainelUsuario.jsp");
                 
                 return;  
+        }
         }
        }
        }

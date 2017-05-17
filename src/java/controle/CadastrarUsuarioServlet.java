@@ -51,24 +51,24 @@ public class CadastrarUsuarioServlet extends HttpServlet {
             
         if(senha.trim().length() != 6){
             
-            msgErro = "A senha tem que ser igual a 6 caracters";
+            msgErro = "A senha tem que ser igual a 6 caracters.";
             
         }else{
             
             if(senha.contains(" ")){
                 
-                msgErro = "A senha não pode ter espaço"; 
+                msgErro = "A senha não pode ter espaço."; 
             }else{
             
             if(login.contains(" ")){
                 
-                msgErro = "O login não pode ter espaço";
+                msgErro = "O login não pode ter espaço.";
                 
             }else{
             
             if(senha.equals(nome) || senha.equals(login)){
                 
-                 msgErro = "A senha não pode ser igual ao login nem igual ao nome";
+                 msgErro = "A senha não pode ser igual ao login nem igual ao nome.";
                  
             }else{
         
@@ -106,7 +106,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         }
         }else{
             
-             msgErro = "O login não pode ter menos que 5 caracteres";
+             msgErro = "O login não pode ter menos que 5 caracteres.";
         }
         
         try (PrintWriter out = response.getWriter()) {

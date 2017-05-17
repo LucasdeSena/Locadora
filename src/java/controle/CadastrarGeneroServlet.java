@@ -21,7 +21,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.GeneroDAO;
 import persistencia.UsuarioDAO;
 import utilidades.BancoDeDadosException;
-import utilidades.PersonalizarMsgErro;
+
+import utilidades.PersonalizarMsgErro3;
 
 /**
  *
@@ -65,7 +66,7 @@ public class CadastrarGeneroServlet extends HttpServlet {
             GeneroDAO.inserir(genero);
             
             }catch (Exception ex){
-            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o gênero: " + PersonalizarMsgErro.getMensagem(ex.getMessage()));
+            request.setAttribute("msgErro", "Ocorreu um erro ao salvar o gênero: " + PersonalizarMsgErro3.getMensagem(ex.getMessage()));
             RequestDispatcher rd = request.getRequestDispatcher("CadastroGenero.jsp");
             rd.forward(request, response);
             

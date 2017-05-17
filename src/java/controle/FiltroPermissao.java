@@ -39,7 +39,7 @@ public class FiltroPermissao implements Filter{
         //Pega o parametro usuarioAutenticado da sessão
         Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioAutenticado");
         
-        if(usuario.getPerfil().equals("func")){
+        if(usuario != null && usuario.getPerfil().equals("func")){
             
             res.sendRedirect("PainelUsuario.jsp");
             
